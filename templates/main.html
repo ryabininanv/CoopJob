@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link href="{% static 'main/style.css' %}" rel="stylesheet">
+</head>
+<body style="background: aquamarine">
+<div class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"><span
+                            class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand">Команда.ру</a>
+                </div>
+                <div class="navbar-collapse collapse" id="mobile_menu">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Главная</a></li>
+                        <li><a href="/mytask/">Мои задачи</a></li>
+                        {% if ismanager %}
+                            <li><a href="/addtask">Добавить задачу</a></li>
+                        {% endif %}
+                        <li><a href="/about">О сайте</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span>
+                            {% if user != None %}
+                                {{ user.username }}
+                            {% else %}
+                                Профиль
+                            {% endif %}</a></li>
+                        {% if is_auth %}
+                            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Выход</a></li>
+                        {% else %}
+                            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Вход</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container1">
+
+    <div class="box">
+        <h1 style="text-align: center">Открытые</h1>
+        {% for task in tasks %}
+            {% if task.status == "100" %}
+                <div class="box_content">
+                    <div class="container1">
+                        <h2>{{ task.title }}</h2>
+                        <div class="rz">
+                            <h4>{{ task.get_created }}</h4>
+                        </div>
+                    </div>
+                    <div class="container1">
+                        <h3>Тип: {{ task.type }}</h3>
+                        {% if task.file_task != None %}
+                            <div class="rz">
+                                <a style="color:white" href="{{ task.file_task }}" download="{{ task.file_task }}"><img
+                                        src="{% static "main/file.png" %}"></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="container1">
+                        {% if task.deadlinedate != None %}
+                            {% if task.check_deadline %}
+                                <h3 style="color: red">Срок сдачи: {{ task.get_deadline }}</h3>
+                            {% else %}
+                                <h3>Срок сдачи: {{ task.get_deadline }}</h3>
+                            {% endif %}
+                        {% else %}
+                            <h3>Срок сдачи: отустствует</h3>
+                        {% endif %}
+                        <div class="rz">
+                            {% if task.user != None %}
+                                <h3 class="h35">Выполняет: {{ task.user.last_name }} {{ task.user.first_name }}</h3>
+                            {% else %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="task" value="{{ task.id }}"/>
+                                    <button type="submit" class="accept">Принять</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="box">
+        <h1 style="text-align: center">В работе</h1>
+        {% for task in tasks %}
+            {% if task.status == "101" %}
+                <div class="box_content">
+                    <div class="container1">
+                        <h2>{{ task.title }}</h2>
+                        <div class="rz">
+                            <h4>{{ task.get_created }}</h4>
+                        </div>
+                    </div>
+                    <div class="container1">
+                        <h3>Тип: {{ task.type }}</h3>
+                        {% if task.file_task != "" %}
+                            <div class="rz">
+                                <a style="color:white" href="{{ task.file_task }}" download="{{ task.file_task }}">
+                                    <img src="{% static "main/file.png" %}">
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="container1">
+                        {% if task.deadlinedate != None %}
+                            {% if task.check_deadline %}
+                                <h3 style="color: red">Срок сдачи: {{ task.get_deadline }}</h3>
+                            {% else %}
+                                <h3>Срок сдачи: {{ task.get_deadline }}</h3>
+                            {% endif %}
+                        {% else %}
+                            <h3>Срок сдачи: отустствует</h3>
+                        {% endif %}
+                        <div class="rz">
+                            {% if task.user != None %}
+                                <h3 class="h35">Выполняет: {{ task.user.last_name }} {{ task.user.first_name }}</h3>
+                            {% else %}
+                                <button class="accept">Принять</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="box">
+        <h1 style="text-align: center">Закрытые</h1>
+        {% for task in tasks %}
+            {% if task.status == "102" %}
+                <div class="box_content">
+                    <div class="container1">
+                        <h2>{{ task.title }}</h2>
+                        <div class="rz">
+                            <h4>{{ task.get_created }}</h4>
+                        </div>
+                    </div>
+                    <div class="container1">
+                        <h3>Тип: {{ task.type }}</h3>
+                        {% if task.file_task != None %}
+                            <div class="rz">
+                                <a style="color:white" href="{{ task.file_task }}" download="{{ task.file_task }}"><img
+                                        src="{% static "main/file.png" %}"></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="container1">
+                        {% if task.deadlinedate != None %}
+                            <h3>Срок сдачи: {{ task.get_deadline }}</h3>
+                        {% else %}
+                            <h3>Срок сдачи: отустствует</h3>
+                        {% endif %}
+                        <div class="rz">
+                            {% if task.user != None %}
+                                <h3 class="h35">Выполнял: {{ task.user.last_name }} {{ task.user.first_name }}</h3>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+</div>
+</body>
+</html>
