@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Аккаунт{% endblock %}
+{% block content %}
+
+<div class="container" style="background: transparent; border-color: white; margin-top:300px">
+  <div style="background: #032536; border-color: white" class="card">
+    <div class="card-body">
+      <p style="color:white">Добро пожаловать, <b>{{ user.username }}</b>!</p>
+      <a style="color:white" href="{% url 'logout' %}" class="text-danger">Выйти из профиля</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

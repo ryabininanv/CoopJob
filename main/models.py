@@ -9,7 +9,7 @@ class Task(models.Model):
     status_list = (("100", "Открыт",), ("101", "В работе"), ("102", "Закрыт"))
     deadlinedate = models.DateField(blank=True, null=True)
     deadlinetime = models.TimeField(blank=True, null=True)
-    file_task = models.FileField(blank=True, null=True)
+    file_task = models.FileField(null=True, blank=True, upload_to="")
     title = models.CharField(max_length=200)
     type = models.CharField(max_length=200)
     status = models.CharField(max_length=10, choices=status_list, default=100)
@@ -23,12 +23,16 @@ class Task(models.Model):
         self.user = user
 
     def get_deadline(self):
+        if self.deadlinetime is None or self.deadlinedate is None:
+            return "отсутствует"
         return self.deadlinedate.strftime("%d.%m.%Y ")+self.deadlinetime.strftime("%H:%M")
 
     def get_created(self):
         return self.created_on.strftime("%d.%m.%Y %H:%M")
 
     def check_deadline(self):
+        if self.deadlinetime is None or self.deadlinedate is None:
+            return False
         return datetime.now().date() >= self.deadlinedate and datetime.now().time() > self.deadlinetime
 
 

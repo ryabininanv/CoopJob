@@ -46,15 +46,38 @@ html{
 }
 
 
-h1{font-size: 20px; padding: 1px; margin: 2px}
-h2{font-size: 20px; padding: 1px; margin: 2px}
-h3{font-size: 15px; padding: 1px; margin: 2px}
-h4{font-size: 10px; padding: 1px; margin: 2px}
-.h35{font-size: 13px; padding: 1px; margin: 2px}
+h1{font-size: 20px; padding: 1px; margin: 2px; color: #F64209}
+h2{font-size: 20px; padding: 1px; margin: 2px; color: white}
+h3{font-size: 15px; padding: 1px; margin: 2px; color: white;
+}
+h4{font-size: 10px; padding: 1px; margin: 2px; color: yellow}
+.h35{font-size: 13px; padding: 1px; margin: 2px; color: #63f563
+}
 
 .rz{
   max-width: fit-content;
   min-height: 1em;
   margin-left: auto;
   padding-right: 5px;
+}
+
+.forms{
+    max-width: fit-content;
+    margin: auto;
+    background: #595555;
+    border-radius: 15px;
+    padding-bottom: 5px;
+}
+
+.name{
+    color: #D33909;
+}
+
+input[type="file"]{
+    margin: auto;
+    color: #D33909;
+}
+
+.date{
+    color: white;
 }

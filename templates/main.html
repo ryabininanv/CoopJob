@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" style="background: black">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -9,7 +9,7 @@
     <title>Главная</title>
     <link href="{% static 'main/style.css' %}" rel="stylesheet">
 </head>
-<body style="background: aquamarine">
+<body style="background: black">
 <div class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="row">
@@ -18,7 +18,7 @@
                     <button class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"><span
                             class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                     </button>
-                    <a href="#" class="navbar-brand">Команда.ру</a>
+                   <a href="/task" class="navbar-brand" style="color: #F64209">Команда.ру</a>
                 </div>
                 <div class="navbar-collapse collapse" id="mobile_menu">
                     <ul class="nav navbar-nav">
@@ -48,10 +48,10 @@
     </div>
 </div>
 
-<div class="container1">
+<div class="container1" style="background: black">
 
     <div class="box">
-        <h1 style="text-align: center">Открытые</h1>
+        <h1 style="text-align: center;">Открытые</h1>
         {% for task in tasks %}
             {% if task.status == "100" %}
                 <div class="box_content">
