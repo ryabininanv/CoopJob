@@ -63,10 +63,11 @@
                     </div>
                     <div class="container1">
                         <h3>Тип: {{ task.type }}</h3>
-                        {% if task.file_task != None %}
+                        {% if task.file_task != "" %}
                             <div class="rz">
-                                <a style="color:white" href="{{ task.file_task }}" download="{{ task.file_task }}"><img
-                                        src="{% static "main/file.png" %}"></a>
+                                <a style="color:white" href="{{ task.file_task }}" download="{{ task.file_task }}">
+                                    <img src="{% static "main/file.png" %}">
+                                </a>
                             </div>
                         {% endif %}
                     </div>
@@ -154,10 +155,11 @@
                     </div>
                     <div class="container1">
                         <h3>Тип: {{ task.type }}</h3>
-                        {% if task.file_task != None %}
+                        {% if task.file_task != "" %}
                             <div class="rz">
-                                <a style="color:white" href="{{ task.file_task }}" download="{{ task.file_task }}"><img
-                                        src="{% static "main/file.png" %}"></a>
+                                <a style="color:white" href="{{ task.file_task }}" download="{{ task.file_task }}">
+                                    <img src="{% static "main/file.png" %}">
+                                </a>
                             </div>
                         {% endif %}
                     </div>
